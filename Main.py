@@ -25,15 +25,15 @@ while True:
             New_login = c.allCripto(input("Novo Usuario>>"),15)
             New_password = c.allCripto(input("Nova Senha>>"),15)
 
-            if (df['Login'] != New_login).any():
+            if (df['Login'] == New_login).any():
+                print('Usuario já existente')
+            else:
                 New_user = pd.DataFrame(
-                    [{"Login": New_login, "Password": New_password}])
+                [{"Login": New_login, "Password": New_password}])
                 New_user.to_csv("logs.csv", mode="a",
                                 index=False, header=False)
                 df = pd.read_csv("logs.csv")
-            else:
-                print('Usuario já existente')
-                break
+
 #Sistema de Verificação de Funcionarios
 while True:
     print("--------------------------")
