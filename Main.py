@@ -1,14 +1,15 @@
 import pandas as pd
-
+import Criptografer as c
+import Descriptografer as d
 
 df = pd.read_csv("logs.csv")
 
 #Sistema de Login
 while True:
     
-    Login = input("Usuario>>")
-    Password = input("Senha>>")
-
+    Login = c.allCripto(input("Usuario>>"),15)
+    Password = c.allCripto(input("Senha>>"),15)
+    Login_name = d.AllDescripto(Login,15)
     Find = False
     
     for index, row in df.iterrows():
@@ -20,8 +21,10 @@ while True:
         print("Úsuario não encontrado ou senha incorrestos")
         Choice = input("Deseja se Cadastrar? S/N").lower()
         if Choice == "s":
-            New_login = input("Novo Usuario>>")
-            New_password = input("Nova Senha>>")
+
+            New_login = c.allCripto(input("Novo Usuario>>"),15)
+            New_password = c.allCripto(input("Nova Senha>>"),15)
+
             if (df['Login'] != New_login).any():
                 New_user = pd.DataFrame(
                     [{"Login": New_login, "Password": New_password}])
@@ -29,14 +32,15 @@ while True:
                                 index=False, header=False)
                 df = pd.read_csv("logs.csv")
             else:
+                print('Usuario já existente')
                 break
 #Sistema de Verificação de Funcionarios
 while True:
     print("--------------------------")
-    print(f"      Bom dia {Login}")
+    print(f"      Bom dia {Login_name}")
     print("--------------------------")
     print("oq deseja fazer?")
     Choice = input("/Verificar/")
     match Choice:
         case "Verificar":
-            print(f"{df}")
+            break
